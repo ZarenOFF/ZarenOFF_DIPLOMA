@@ -10,14 +10,7 @@ spec:
     repoURL: https://metallb.github.io/metallb
     targetRevision: 0.14.9
     helm:
-      values: |
-        # Конфигурация MetalLB
-        configInline:
-          address-pools:
-           - name: default
-             protocol: layer2
-             addresses:
-             - 10.10.99.105-10.10.99.106
+      # Удаляем configInline и используем CRs
   destination:
     server: https://kubernetes.default.svc
     namespace: metallb-system
