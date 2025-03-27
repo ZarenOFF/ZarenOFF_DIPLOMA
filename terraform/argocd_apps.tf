@@ -27,20 +27,3 @@ spec:
 YAML
 }
 
-# Создание Secret
-resource "kubectl_manifest" "apps_secret" {
-  depends_on = [
-    helm_release.argocd
-  ]
-  yaml_body = <<YAML
-apiVersion: v1
-kind: Secret
-metadata:
-  name: pgadmin-secret
-  namespace: default
-type: Opaque
-data:
-  PGADMIN_DEFAULT_PASSWORD: cGdhZG1pbl9wYXNzd29yZA==
-  PGADMIN_DEFAULT_EMAIL: YWRtaW5AYWRtaW4uY29t
-YAML
-}
