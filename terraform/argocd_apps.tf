@@ -19,7 +19,9 @@ spec:
     repoURL: https://github.com/ZarenOFF/ZarenOFF_DIPLOMA.git
     targetRevision: HEAD
     directory:
-        recurse: true
+      recurse: true
+      jsonnet: {}
+      exclude: "*-config/*"  # Исключаем директории конфигурации, чтобы они не обрабатывались дважды
   syncPolicy:
     automated:
       prune: true

@@ -1,16 +1,16 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: metallb
+  name: metallb-config
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "0"
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   project: default
   source:
-    chart: metallb
-    repoURL: https://metallb.github.io/metallb
-    targetRevision: 0.14.9
+    repoURL: https://github.com/ZarenOFF/ZarenOFF_DIPLOMA.git
+    targetRevision: HEAD
+    path: argocd-apps/infra/metallb/metallb-config
   destination:
     server: https://kubernetes.default.svc
     namespace: metallb-system

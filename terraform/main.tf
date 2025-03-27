@@ -71,5 +71,9 @@ resource "helm_release" "argocd" {
   #  value = "LoadBalancer"
   #}
 
-  depends_on = [kubernetes_namespace.argocd, null_resource.helm_repo_add]
+  depends_on = [
+    kubernetes_namespace.argocd, 
+    null_resource.helm_repo_add,
+    kubernetes_namespace.metallb_system
+  ]
 }
