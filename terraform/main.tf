@@ -48,6 +48,17 @@ resource "null_resource" "helm_repo_add" {
   }
 }
 
+resource "kubernetes_namespace" "metallb_system" {
+  metadata {
+    name = "metallb-system"
+    labels = {
+      "pod-security.kubernetes.io/enforce" = "privileged"
+      "pod-security.kubernetes.io/audit"  = "privileged"
+      "pod-security.kubernetes.io/warn"   = "privileged"
+    }
+  }
+}
+
 # Установка Argo CD с помощью Helm
 resource "helm_release" "argocd" {
   name       = "argocd"

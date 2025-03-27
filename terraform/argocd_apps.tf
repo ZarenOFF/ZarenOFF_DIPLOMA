@@ -15,8 +15,8 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: dev
-    repoURL: https://github.com/ZarenOFF/ArgoCD-Study.git
+    path: argocd-apps
+    repoURL: https://github.com/ZarenOFF/ZarenOFF_DIPLOMA.git
     targetRevision: HEAD
     directory:
         recurse: true
