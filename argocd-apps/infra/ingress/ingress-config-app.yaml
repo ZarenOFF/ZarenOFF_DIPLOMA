@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ingress-config
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"  # После установки Ingress Controller
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/ZarenOFF/ZarenOFF_DIPLOMA.git
+    targetRevision: HEAD
+    path: argocd-apps/infra/ingress/ingress-config
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd  # Здесь используем argocd, т.к. конфигурация относится к ArgoCD
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

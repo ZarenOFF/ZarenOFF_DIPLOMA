@@ -66,10 +66,20 @@ resource "helm_release" "argocd" {
   chart      = "argo-cd"
   namespace  = kubernetes_namespace.argocd.metadata[0].name
 
-  #set {
-  #  name  = "server.service.type"
-  #  value = "LoadBalancer"
-  #}
+  set {
+    name  = "server.insecure"
+    value = "true"
+  }
+
+  set {
+    name  = "server.baseHref"
+    value = "/argocd/"
+  }
+
+  set {
+    name  = "server.rootPath"
+    value = "/argocd"
+  }
 
   depends_on = [
     kubernetes_namespace.argocd, 
