@@ -15,7 +15,7 @@ metadata:
       proxy_set_header X-Forwarded-Uri $request_uri;
 spec:
   rules:
-  - host: argocd.zarenoff.top
+  - host: zarenoff.top
     http:
       paths:
       - path: /
