@@ -70,12 +70,12 @@ resource "helm_release" "argocd" {
     <<-EOT
     server:
       insecure: true
-      baseHref: /argocd/
-      rootPath: /argocd
+      #baseHref: /argocd/
+      #rootPath: /argocd
       extraArgs:
         - --insecure
       config:
-        url: http://zarenoff.top/argocd
+        #url: http://zarenoff.top/argocd
         application.instanceLabelKey: argocd.argoproj.io/instance
     configs:
       params:
