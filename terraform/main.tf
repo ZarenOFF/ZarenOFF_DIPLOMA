@@ -66,20 +66,22 @@ resource "helm_release" "argocd" {
   chart      = "argo-cd"
   namespace  = kubernetes_namespace.argocd.metadata[0].name
 
-  set {
-    name  = "server.insecure"
-    value = "true"
-  }
-
-  set {
-    name  = "server.baseHref"
-    value = "/argocd/"
-  }
-
-  set {
-    name  = "server.rootPath"
-    value = "/argocd"
-  }
+  values = [
+    <<-EOT
+    server:
+      insecure: true
+      baseHref: /argocd/
+      rootPath: /argocd
+      extraArgs:
+        - --insecure
+      config:
+        url: http://zarenoff.top/argocd
+        application.instanceLabelKey: argocd.argoproj.io/instance
+    configs:
+      params:
+        server.insecure: "true"
+    EOT
+  ]
 
   depends_on = [
     kubernetes_namespace.argocd, 
