@@ -2,7 +2,7 @@ apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
   name: default-pool
-  namespace: {{ .Release.Namespace }}
+  namespace: metallb-system
 spec:
   addresses:
   - 10.10.99.105-10.10.99.106
@@ -11,7 +11,7 @@ apiVersion: metallb.io/v1beta1
 kind: L2Advertisement
 metadata:
   name: l2-advertisement
-  namespace: {{ .Release.Namespace }}
+  namespace: metallb-system
 spec:
   ipAddressPools:
   - default-pool
