@@ -21,7 +21,7 @@ spec:
     directory:
       recurse: true
       jsonnet: {}
-      exclude: "*-config/*"  # Исключаем директории конфигурации, чтобы они не обрабатывались дважды
+      exclude: "*-config/*"
   syncPolicy:
     automated:
       prune: true

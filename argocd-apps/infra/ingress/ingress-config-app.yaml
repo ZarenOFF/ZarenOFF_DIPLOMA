@@ -4,7 +4,7 @@ metadata:
   name: ingress-config
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "3"  # После установки Ingress Controller
+    argocd.argoproj.io/sync-wave: "3"
 spec:
   project: default
   source:
@@ -13,7 +13,7 @@ spec:
     path: argocd-apps/infra/ingress/ingress-config
   destination:
     server: https://kubernetes.default.svc
-    namespace: argocd  # Здесь используем argocd, т.к. конфигурация относится к ArgoCD
+    namespace: argocd
   syncPolicy:
     automated:
       prune: true
