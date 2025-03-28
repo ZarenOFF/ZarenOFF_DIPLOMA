@@ -69,17 +69,8 @@ resource "helm_release" "argocd" {
   values = [
     <<-EOT
     server:
-      insecure: true
-      #baseHref: /argocd/
-      #rootPath: /argocd
       extraArgs:
         - --insecure
-      config:
-        #url: http://zarenoff.top/argocd
-        application.instanceLabelKey: argocd.argoproj.io/instance
-    configs:
-      params:
-        server.insecure: "true"
     EOT
   ]
 
