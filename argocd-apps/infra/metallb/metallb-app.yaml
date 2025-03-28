@@ -19,14 +19,14 @@ spec:
             operator: "Equal"
             value: "infra"
             effect: "NoSchedule"
+        nodeSelector:
+          node-role.kubernetes.io/infra: "true"
         speaker:
           tolerations:
           - key: "node-role"
             operator: "Equal"
             value: "infra"
             effect: "NoSchedule"
-        nodeSelector:
-          node-role.kubernetes.io/infra: "true"
   destination:
     server: https://kubernetes.default.svc
     namespace: metallb-system
