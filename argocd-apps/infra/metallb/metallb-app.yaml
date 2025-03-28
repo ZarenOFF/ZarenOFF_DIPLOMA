@@ -19,8 +19,8 @@ spec:
             operator: "Equal"
             value: "infra"
             effect: "NoSchedule"
-        nodeSelector:
-          node-role.kubernetes.io/infra: "true"
+          nodeSelector:
+            node-role.kubernetes.io/infra: "true"
         speaker:
           tolerations:
           - key: "node-role"
