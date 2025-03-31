@@ -354,12 +354,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: frontend-external
+  name: frontend-internal
   namespace: boutiqe
   labels:
     app: frontend
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     app: frontend
   ports:
