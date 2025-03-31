@@ -52,9 +52,7 @@ spec:
             node-role.kubernetes.io/infra: "true"
           adminPassword: null
           ingress:
-            enabled: true
-            hosts:
-            - grafana.zarenoff.top
+            enabled: false
 
         alertmanager:
           alertmanagerSpec:
