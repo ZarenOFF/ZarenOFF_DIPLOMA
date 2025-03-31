@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: boutique-ingress
-  namespace: boutique
+  namespace: boutiqe
 spec:
   rules:
   - host: boutique.zarenoff.top
