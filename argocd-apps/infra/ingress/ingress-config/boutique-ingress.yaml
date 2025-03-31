@@ -1,8 +1,8 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: boutiqe-ingress
-  namespace: boutiqe
+  name: boutique-ingress
+  namespace: boutique
 spec:
   rules:
   - host: boutique.zarenoff.top
@@ -12,6 +12,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: boutiqe-internal
+            name: frontend
             port:
               number: 80
