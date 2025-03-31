@@ -1,0 +1,96 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kube-prometheus-stack
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+spec:
+  project: default
+  source:
+    chart: kube-prometheus-stack
+    repoURL: https://prometheus-community.github.io/helm-charts
+    targetRevision: 70.3.0
+    helm:
+      releaseName: monitoring
+      values: |
+        prometheusOperator:
+          tolerations:
+          - key: "node-role"
+            operator: "Equal"
+            value: "infra"
+            effect: "NoSchedule"
+          nodeSelector:
+            node-role.kubernetes.io/infra: "true"
+
+        prometheus:
+          prometheusSpec:
+            tolerations:
+            - key: "node-role"
+              operator: "Equal"
+              value: "infra"
+              effect: "NoSchedule"
+            nodeSelector:
+              node-role.kubernetes.io/infra: "true"
+            storageSpec: null
+          alertmanagerSpec:
+            tolerations:
+            - key: "node-role"
+              operator: "Equal"
+              value: "infra"
+              effect: "NoSchedule"
+            nodeSelector:
+              node-role.kubernetes.io/infra: "true"
+
+        grafana:
+          tolerations:
+          - key: "node-role"
+            operator: "Equal"
+            value: "infra"
+            effect: "NoSchedule"
+          nodeSelector:
+            node-role.kubernetes.io/infra: "true"
+          adminPassword: null
+          ingress:
+            enabled: true
+            hosts:
+            - grafana.zarenoff.top
+
+        alertmanager:
+          alertmanagerSpec:
+            tolerations:
+            - key: "node-role"
+              operator: "Equal"
+              value: "infra"
+              effect: "NoSchedule"
+            nodeSelector:
+              node-role.kubernetes.io/infra: "true"
+            storage: null
+
+        kubeStateMetrics:
+          tolerations:
+          - key: "node-role"
+            operator: "Equal"
+            value: "infra"
+            effect: "NoSchedule"
+          nodeSelector:
+            node-role.kubernetes.io/infra: "true"
+        nodeExporter:
+          tolerations:
+          - key: "node-role"
+            operator: "Equal"
+            value: "infra"
+            effect: "NoSchedule"
+      parameters:
+        - name: crds.create
+          value: "true"
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: monitoring
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
