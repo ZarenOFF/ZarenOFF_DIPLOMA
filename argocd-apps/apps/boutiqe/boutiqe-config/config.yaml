@@ -352,22 +352,6 @@ spec:
     targetPort: 8080
 ---
 apiVersion: v1
-kind: Service
-metadata:
-  name: frontend-internal
-  namespace: boutiqe
-  labels:
-    app: frontend
-spec:
-  type: ClusterIP
-  selector:
-    app: frontend
-  ports:
-  - name: http
-    port: 80
-    targetPort: 8080
----
-apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: frontend
