@@ -18,8 +18,8 @@ spec:
         preUpgradeChecker:
           jobEnabled: false
         defaultSettings:
-          defaultReplicaCount: 2
-          createDefaultDiskLabeledNodes: true
+          # defaultReplicaCount: 2
+          # createDefaultDiskLabeledNodes: true
           guaranteedEngineManagerCPU: 12
           guaranteedReplicaManagerCPU: 12
         # longhornManager:
