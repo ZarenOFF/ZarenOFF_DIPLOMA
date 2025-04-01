@@ -22,27 +22,27 @@ spec:
           createDefaultDiskLabeledNodes: true
           guaranteedEngineManagerCPU: 12
           guaranteedReplicaManagerCPU: 12
-        longhornManager:
-          tolerations:
-          - key: "node-role"
-            operator: "Equal"
-            value: "infra"
-            effect: "NoSchedule"
-        longhornDriver:
-          tolerations:
-          - key: "node-role"
-            operator: "Equal"
-            value: "infra"
-            effect: "NoSchedule"
+        # longhornManager:
+        #   tolerations:
+        #   - key: "node-role"
+        #     operator: "Equal"
+        #     value: "infra"
+        #     effect: "NoSchedule"
+        # longhornDriver:
+        #   tolerations:
+        #   - key: "node-role"
+        #     operator: "Equal"
+        #     value: "infra"
+        #     effect: "NoSchedule"
         longhornUI:
           replicas: 1
-          tolerations:
-          - key: "node-role"
-            operator: "Equal"
-            value: "infra"
-            effect: "NoSchedule"
-          nodeSelector:
-            node-role.kubernetes.io/infra: "true"
+          # tolerations:
+          # - key: "node-role"
+          #   operator: "Equal"
+          #   value: "infra"
+          #   effect: "NoSchedule"
+          # nodeSelector:
+          #   node-role.kubernetes.io/infra: "true"
   destination:
     server: https://kubernetes.default.svc
     namespace: longhorn-system

@@ -11,22 +11,22 @@ spec:
     chart: metallb
     repoURL: https://metallb.github.io/metallb
     targetRevision: 0.14.9
-    helm:
-      values: |
-        controller:
-          tolerations:
-          - key: "node-role"
-            operator: "Equal"
-            value: "infra"
-            effect: "NoSchedule"
-          nodeSelector:
-            node-role.kubernetes.io/infra: "true"
-        speaker:
-          tolerations:
-          - key: "node-role"
-            operator: "Equal"
-            value: "infra"
-            effect: "NoSchedule"
+    # helm:
+    #   values: |
+    #     controller:
+    #       tolerations:
+    #       - key: "node-role"
+    #         operator: "Equal"
+    #         value: "infra"
+    #         effect: "NoSchedule"
+    #       nodeSelector:
+    #         node-role.kubernetes.io/infra: "true"
+    #     speaker:
+    #       tolerations:
+    #       - key: "node-role"
+    #         operator: "Equal"
+    #         value: "infra"
+    #         effect: "NoSchedule"
   destination:
     server: https://kubernetes.default.svc
     namespace: metallb-system

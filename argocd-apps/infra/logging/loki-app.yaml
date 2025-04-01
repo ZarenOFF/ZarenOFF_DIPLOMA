@@ -28,22 +28,22 @@ spec:
                 index:
                   prefix: index_
                   period: 24h
-          tolerations:
-          - key: "node-role"
-            operator: "Equal"
-            value: "infra"
-            effect: "NoSchedule"
-          nodeSelector:
-            node-role.kubernetes.io/infra: "true"
+          # tolerations:
+          # - key: "node-role"
+          #   operator: "Equal"
+          #   value: "infra"
+          #   effect: "NoSchedule"
+          # nodeSelector:
+          #   node-role.kubernetes.io/infra: "true"
         singleBinary:
           replicas: 1
-          tolerations:
-          - key: "node-role"
-            operator: "Equal"
-            value: "infra"
-            effect: "NoSchedule"
-          nodeSelector:
-            node-role.kubernetes.io/infra: "true"
+          # tolerations:
+          # - key: "node-role"
+          #   operator: "Equal"
+          #   value: "infra"
+          #   effect: "NoSchedule"
+          # nodeSelector:
+          #   node-role.kubernetes.io/infra: "true"
         deploymentMode: "SingleBinary"
         backend:
           replicas: 0
@@ -53,13 +53,13 @@ spec:
           replicas: 0
         chunksCache:
           allocatedMemory: 1024
-          tolerations:
-          - key: "node-role"
-            operator: "Equal"
-            value: "infra"
-            effect: "NoSchedule"
-          nodeSelector:
-            node-role.kubernetes.io/infra: "true"
+          # tolerations:
+          # - key: "node-role"
+          #   operator: "Equal"
+          #   value: "infra"
+          #   effect: "NoSchedule"
+          # nodeSelector:
+          #   node-role.kubernetes.io/infra: "true"
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
