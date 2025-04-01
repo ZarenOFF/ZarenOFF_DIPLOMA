@@ -1,0 +1,51 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: longhorn
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+spec:
+  project: default
+  source:
+    chart: longhorn
+    repoURL: https://charts.longhorn.io
+    targetRevision: 1.8.1
+    helm:
+      values: |
+        persistence:
+          defaultClassReplicaCount: 2
+        defaultSettings:
+          defaultReplicaCount: 2
+          createDefaultDiskLabeledNodes: true
+          guaranteedEngineManagerCPU: 12
+          guaranteedReplicaManagerCPU: 12
+        longhornManager:
+          tolerations:
+          - key: "node-role"
+            operator: "Equal"
+            value: "storage"
+            effect: "NoSchedule"
+        longhornDriver:
+          tolerations:
+          - key: "node-role"
+            operator: "Equal"
+            value: "storage"
+            effect: "NoSchedule"
+        longhornUI:
+          tolerations:
+          - key: "node-role"
+            operator: "Equal"
+            value: "storage"
+            effect: "NoSchedule"
+          nodeSelector:
+            node-role.kubernetes.io/infra: "true"
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: longhorn-system
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
