@@ -48,6 +48,12 @@ resource "null_resource" "helm_repo_add" {
   }
 }
 
+resource "null_resource" "grafana_helm_repo" {
+  provisioner "local-exec" {
+    command = "helm repo add grafana https://grafana.github.io/helm-charts && helm repo update"
+  }
+}
+
 resource "kubernetes_namespace" "metallb_system" {
   metadata {
     name = "metallb-system"
@@ -166,6 +172,7 @@ resource "helm_release" "argocd" {
 
   depends_on = [
     kubernetes_namespace.argocd, 
+    null_resource.helm_repo_add,
     null_resource.helm_repo_add,
     kubernetes_namespace.metallb_system
   ]
