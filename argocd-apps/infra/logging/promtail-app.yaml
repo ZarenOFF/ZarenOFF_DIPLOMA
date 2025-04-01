@@ -20,9 +20,9 @@ spec:
             pipelineStages:
               - docker: {}
               - cri: {}
-        tolerations:
-        - operator: Exists
-          effect: NoSchedule
+        # tolerations:
+        # - operator: Exists
+        #   effect: NoSchedule
         daemonset:
           enabled: true
         affinity: {}
