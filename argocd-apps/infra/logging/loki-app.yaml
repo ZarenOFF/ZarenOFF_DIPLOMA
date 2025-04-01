@@ -12,8 +12,29 @@ spec:
     repoURL: https://grafana.github.io/helm-charts
     targetRevision: 6.29.0
     helm:
-      valueFiles:
-        - loki-config/values.yaml
+      values: |
+        loki:
+          auth_enabled: false
+          commonConfig:
+            replication_factor: 1
+          storage:
+            type: filesystem
+          tolerations:
+          - key: "node-role"
+            operator: "Equal"
+            value: "infra"
+            effect: "NoSchedule"
+          nodeSelector:
+            node-role.kubernetes.io/infra: "true"
+        singleBinary:
+          replicas: 1
+          tolerations:
+          - key: "node-role"
+            operator: "Equal"
+            value: "infra"
+            effect: "NoSchedule"
+          nodeSelector:
+            node-role.kubernetes.io/infra: "true"
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
