@@ -35,6 +35,13 @@ spec:
             effect: "NoSchedule"
           nodeSelector:
             node-role.kubernetes.io/infra: "true"
+        deploymentMode: "SingleBinary"
+        backend:
+          replicas: 0
+        read:
+          replicas: 0
+        write:
+          replicas: 0
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
