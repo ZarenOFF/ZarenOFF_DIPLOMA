@@ -54,6 +54,12 @@ resource "null_resource" "grafana_helm_repo" {
   }
 }
 
+resource "null_resource" "longhorn_helm_repo" {
+  provisioner "local-exec" {
+    command = "helm repo add longhorn https://charts.longhorn.io && helm repo update"
+  }
+}
+
 resource "kubernetes_namespace" "metallb_system" {
   metadata {
     name = "metallb-system"
@@ -174,6 +180,7 @@ resource "helm_release" "argocd" {
     kubernetes_namespace.argocd, 
     null_resource.helm_repo_add,
     null_resource.helm_repo_add,
+    null_resource.longhorn_helm_repo,
     kubernetes_namespace.metallb_system
   ]
 }

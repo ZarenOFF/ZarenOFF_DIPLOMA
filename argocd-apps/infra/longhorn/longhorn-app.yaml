@@ -26,19 +26,20 @@ spec:
           tolerations:
           - key: "node-role"
             operator: "Equal"
-            value: "storage"
+            value: "infra"
             effect: "NoSchedule"
         longhornDriver:
           tolerations:
           - key: "node-role"
             operator: "Equal"
-            value: "storage"
+            value: "infra"
             effect: "NoSchedule"
         longhornUI:
+          replicas: 1
           tolerations:
           - key: "node-role"
             operator: "Equal"
-            value: "storage"
+            value: "infra"
             effect: "NoSchedule"
           nodeSelector:
             node-role.kubernetes.io/infra: "true"
