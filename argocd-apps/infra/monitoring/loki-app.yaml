@@ -48,6 +48,8 @@ spec:
           #   effect: "NoSchedule"
           # nodeSelector:
           #   node-role.kubernetes.io/infra: "true"
+        gateway:
+          enabled: false
         deploymentMode: "SingleBinary"
         backend:
           replicas: 0
