@@ -18,7 +18,7 @@ spec:
         preUpgradeChecker:
           jobEnabled: false
         defaultSettings:
-          # defaultReplicaCount: 2
+          defaultReplicaCount: 2
           # createDefaultDiskLabeledNodes: true
           guaranteedEngineManagerCPU: 12
           guaranteedReplicaManagerCPU: 12
