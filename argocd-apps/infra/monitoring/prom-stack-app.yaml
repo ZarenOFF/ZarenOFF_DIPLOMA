@@ -14,71 +14,44 @@ spec:
     helm:
       releaseName: monitoring
       values: |
-        # prometheusOperator:
-        #   tolerations:
-        #   - key: "node-role"
-        #     operator: "Equal"
-        #     value: "infra"
-        #     effect: "NoSchedule"
-        #   nodeSelector:
-        #     node-role.kubernetes.io/infra: "true"
-
         prometheus:
           prometheusSpec:
-            # tolerations:
-            # - key: "node-role"
-            #   operator: "Equal"
-            #   value: "infra"
-            #   effect: "NoSchedule"
-            # nodeSelector:
-            #   node-role.kubernetes.io/infra: "true"
             storageSpec: null
-          # alertmanagerSpec:
-          #   tolerations:
-          #   - key: "node-role"
-          #     operator: "Equal"
-          #     value: "infra"
-          #     effect: "NoSchedule"
-          #   nodeSelector:
-          #     node-role.kubernetes.io/infra: "true"
 
         grafana:
-          # tolerations:
-          # - key: "node-role"
-          #   operator: "Equal"
-          #   value: "infra"
-          #   effect: "NoSchedule"
-          # nodeSelector:
-          #   node-role.kubernetes.io/infra: "true"
           adminPassword: null
+          envFromSecret: grafana-smtp-credentials
           ingress:
             enabled: false
+          sidecar:
+            dashboards:
+              enabled: true
+            datasources:
+              enabled: true
+          alerting:
+            enabled: true
+          unified_alerting:
+            enabled: true
+
+          grafana.ini:
+            smtp:
+              enabled: true
+              host: smtp.zarenoff.top:587     # Настройте ваш SMTP сервер и порт
+              user: test@zarenoff.top   # SMTP пользователь
+              password: ${SMTP_PASSWORD}     # Пароль будет взят из Secret
+              from_address: test@zarenoff.top  # Адрес отправителя
+              from_name: Grafana Alerts      # Имя отправителя
+              ehlo_identity: grafana.zarenoff.top # Имя хоста для EHLO
+              starttls_policy: OpportunisticStartTLS  # Политика TLS
+            alerting:
+              enabled: true
+              execute_alerts: true
+            unified_alerting:
+              enabled: true
 
         alertmanager:
           alertmanagerSpec:
-            # tolerations:
-            # - key: "node-role"
-            #   operator: "Equal"
-            #   value: "infra"
-            #   effect: "NoSchedule"
-            # nodeSelector:
-            #   node-role.kubernetes.io/infra: "true"
             storage: null
-
-        # kubeStateMetrics:
-        #   tolerations:
-        #   - key: "node-role"
-        #     operator: "Equal"
-        #     value: "infra"
-        #     effect: "NoSchedule"
-        #   nodeSelector:
-        #     node-role.kubernetes.io/infra: "true"
-        # nodeExporter:
-        #   tolerations:
-        #   - key: "node-role"
-        #     operator: "Equal"
-        #     value: "infra"
-        #     effect: "NoSchedule"
       parameters:
         - name: crds.create
           value: "true"
