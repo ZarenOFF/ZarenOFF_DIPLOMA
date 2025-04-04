@@ -54,6 +54,11 @@ spec:
               from_name: Grafana Alerts
 
         alertmanager:
+          enabled: true
+          name: Alertmanager
+          uid: alertmanager
+          handleGrafanaManagedAlerts: false
+          implementation: prometheus
           alertmanagerSpec:
             storage: null
       parameters:
