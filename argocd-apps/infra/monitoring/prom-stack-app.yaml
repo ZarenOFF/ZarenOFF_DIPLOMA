@@ -55,51 +55,12 @@ spec:
 
         alertmanager:
           enabled: true
-          name: Alertmanager
-          uid: alertmanager
-          handleGrafanaManagedAlerts: false
-          implementation: prometheus
+          configs:
+            global:
+              resolve_timeout: 5m
+              slack_api_url: "https://test.test/test"
           alertmanagerSpec:
             storage: null
-            configSecret: ""
-            configMapTemplate:
-              name: alertmanager-config
-              data:
-                alertmanager.yml: |-
-                  global:
-                    smtp_smarthost: 'smtp.zarenoff.top:587'
-                    smtp_from: 'test@zarenoff.top'
-                    smtp_auth_username: 'test@zarenoff.top'
-                    smtp_auth_password_file: /etc/alertmanager/secrets/smtp-password
-                    smtp_require_tls: true
-                    resolve_timeout: 5m
-
-                  route:
-                    group_by: ['alertname', 'job', 'severity']
-                    group_wait: 30s
-                    group_interval: 5m
-                    repeat_interval: 4h
-                    receiver: 'email-notifications'
-                    routes:
-                      - match:
-                          severity: critical
-                        receiver: 'email-notifications'
-                        group_wait: 10s
-
-                  receivers:
-                    - name: 'email-notifications'
-                      email_configs:
-                      - to: 'admin@zarenoff.top'
-                        send_resolved: true
-
-                  inhibit_rules:
-                    - source_match:
-                        severity: 'critical'
-                      target_match:
-                        severity: 'warning'
-                      equal: ['namespace', 'alertname']
-            secrets: 
-              - smtp-password
 
       parameters:
         - name: crds.create
