@@ -70,7 +70,7 @@ spec:
                     smtp_smarthost: 'smtp.zarenoff.top:587'
                     smtp_from: 'test@zarenoff.top'
                     smtp_auth_username: 'test@zarenoff.top'
-                    smtp_auth_password: '{{ .Values.alertmanager.alertmanagerSpec.secrets.smtp_password }}'
+                    smtp_auth_password_file: /etc/alertmanager/secrets/smtp-password
                     smtp_require_tls: true
                     resolve_timeout: 5m
 
@@ -98,8 +98,10 @@ spec:
                       target_match:
                         severity: 'warning'
                       equal: ['namespace', 'alertname']
-            secrets:
-              smtp_password: "${SMTP_PASSWORD}"
+            secrets: 
+              - name: smtp-password
+                key: SMTP_PASSWORD
+                optional: false
 
       parameters:
         - name: crds.create
