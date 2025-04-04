@@ -20,13 +20,16 @@ spec:
 
         grafana:
           adminPassword: null
-          envFromSecret: grafana-smtp-credentials 
+          envFromSecret: grafana-smtp-credentials
           ingress:
             enabled: false
+
           unified_alerting:
             enabled: true
+
           alerting:
             enabled: false
+
           sidecar:
             dashboards:
               enabled: true
@@ -50,8 +53,10 @@ spec:
               password: ${SMTP_PASSWORD}
               from_address: test@zarenoff.top
               from_name: Grafana Alerts
+
             alerting:
               enabled: false
+
             unified_alerting:
               enabled: true
 
