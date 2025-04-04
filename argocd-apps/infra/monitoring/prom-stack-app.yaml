@@ -28,24 +28,24 @@ spec:
               enabled: true
             datasources:
               enabled: true
-          alerting:
-            enabled: true
+            alerting:
+              enabled: false
+              label: grafana_alerting
+              labelValue: "1"
+              searchNamespace: monitoring
           unified_alerting:
             enabled: true
 
           grafana.ini:
             smtp:
               enabled: true
-              host: smtp.zarenoff.top:587     # Настройте ваш SMTP сервер и порт
-              user: test@zarenoff.top   # SMTP пользователь
-              password: ${SMTP_PASSWORD}     # Пароль будет взят из Secret
-              from_address: test@zarenoff.top  # Адрес отправителя
-              from_name: Grafana Alerts      # Имя отправителя
-              ehlo_identity: grafana.zarenoff.top # Имя хоста для EHLO
-              starttls_policy: OpportunisticStartTLS  # Политика TLS
+              host: smtp.zarenoff.top:587
+              user: test@zarenoff.top
+              password: ${SMTP_PASSWORD}
+              from_address: test@zarenoff.top
+              from_name: Grafana Alerts
             alerting:
-              enabled: true
-              execute_alerts: true
+              enabled: false
             unified_alerting:
               enabled: true
 

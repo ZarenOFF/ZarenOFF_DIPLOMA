@@ -6,11 +6,15 @@ metadata:
   labels:
     grafana_alerting: "1"
 data:
-  notifiers.yaml: |-
-    notifiers:
-      - name: EmailAlerts
-        type: email
-        uid: email1
-        is_default: true
-        settings:
-          addresses: test@zarenoff.top  # Адрес получателя уведомлений
+  alerting.yaml: |-
+    alertmanager_config:
+      route:
+        receiver: 'EmailAlerts'
+        group_by: ['alertname']
+        group_wait: 30s
+        group_interval: 5m
+        repeat_interval: 4h
+      receivers:
+        - name: 'EmailAlerts'
+          email_configs:
+           - to: 'test@zarenoff.top'
