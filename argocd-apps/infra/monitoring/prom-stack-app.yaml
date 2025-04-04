@@ -20,21 +20,27 @@ spec:
 
         grafana:
           adminPassword: null
-          envFromSecret: grafana-smtp-credentials
+          envFromSecret: grafana-smtp-credentials 
           ingress:
+            enabled: false
+          unified_alerting:
+            enabled: true
+          alerting:
             enabled: false
           sidecar:
             dashboards:
               enabled: true
+              label: grafana_dashboard
+              labelValue: "1"
             datasources:
               enabled: true
+              label: grafana_datasource
+              labelValue: "1"
             alerting:
-              enabled: false
+              enabled: true
               label: grafana_alerting
               labelValue: "1"
               searchNamespace: monitoring
-          unified_alerting:
-            enabled: true
 
           grafana.ini:
             smtp:
