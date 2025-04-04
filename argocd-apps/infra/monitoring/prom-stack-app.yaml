@@ -20,14 +20,14 @@ spec:
 
         grafana:
           adminPassword: null
-          envFromSecret: grafana-smtp-credentials
+          envFromSecret: "grafana-smtp-credentials"
           ingress:
             enabled: false
 
-          alerting:
-            enabled: false
-          unifiedAlerting:
-            enabled: true
+          #alerting:
+          #  enabled: false
+          #unifiedAlerting:
+          #  enabled: true
 
           sidecar:
             dashboards:
@@ -44,14 +44,14 @@ spec:
               labelValue: "1"
               searchNamespace: monitoring
 
-          # grafana.ini:
-          #   smtp:
-          #     enabled: "true"
-          #     host: smtp.zarenoff.top:587
-          #     user: test@zarenoff.top
-          #     password: ${SMTP_PASSWORD}
-          #     from_address: test@zarenoff.top
-          #     from_name: Grafana Alerts
+          grafana.ini:
+            smtp:
+              enabled: "true"
+              host: smtp.zarenoff.top:587
+              user: test@zarenoff.top
+              password: ${SMTP_PASSWORD}
+              from_address: test@zarenoff.top
+              from_name: Grafana Alerts
 
         alertmanager:
           alertmanagerSpec:
