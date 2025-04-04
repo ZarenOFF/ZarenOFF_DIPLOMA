@@ -20,7 +20,6 @@ spec:
 
         grafana:
           adminPassword: null
-          #envFromSecret: "grafana-smtp-credentials"
           ingress:
             enabled: false
 
@@ -57,7 +56,7 @@ spec:
           enabled: true
           configs:
             global:
-              resolve_timeout: 5m
+              resolve_timeout: 6m
               slack_api_url: "https://test.test/test"
           alertmanagerSpec:
             storage: null
