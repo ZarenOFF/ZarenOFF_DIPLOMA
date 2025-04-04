@@ -20,7 +20,7 @@ spec:
 
         grafana:
           adminPassword: null
-          envFromSecret: "grafana-smtp-credentials"
+          #envFromSecret: "grafana-smtp-credentials"
           ingress:
             enabled: false
 
