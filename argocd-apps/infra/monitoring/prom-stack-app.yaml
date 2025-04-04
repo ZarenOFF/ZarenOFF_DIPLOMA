@@ -99,9 +99,7 @@ spec:
                         severity: 'warning'
                       equal: ['namespace', 'alertname']
             secrets: 
-              - name: smtp-password
-                key: SMTP_PASSWORD
-                optional: false
+              - smtp-password
 
       parameters:
         - name: crds.create
