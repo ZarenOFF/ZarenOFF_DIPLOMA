@@ -40,7 +40,7 @@ spec:
               labelValue: "1"
             alerting:
               enabled: true
-              label: grafana_alerting
+              label: grafana_alerts
               labelValue: "1"
               searchNamespace: monitoring
 
@@ -61,6 +61,46 @@ spec:
           implementation: prometheus
           alertmanagerSpec:
             storage: null
+            configSecret: ""
+            configMapTemplate:
+              name: alertmanager-config
+              data:
+                alertmanager.yml: |-
+                  global:
+                    smtp_smarthost: 'smtp.zarenoff.top:587'
+                    smtp_from: 'test@zarenoff.top'
+                    smtp_auth_username: 'test@zarenoff.top'
+                    smtp_auth_password: '{{ .Values.alertmanager.alertmanagerSpec.secrets.smtp_password }}'
+                    smtp_require_tls: true
+                    resolve_timeout: 5m
+
+                  route:
+                    group_by: ['alertname', 'job', 'severity']
+                    group_wait: 30s
+                    group_interval: 5m
+                    repeat_interval: 4h
+                    receiver: 'email-notifications'
+                    routes:
+                      - match:
+                          severity: critical
+                        receiver: 'email-notifications'
+                        group_wait: 10s
+
+                  receivers:
+                    - name: 'email-notifications'
+                      email_configs:
+                      - to: 'admin@zarenoff.top'
+                        send_resolved: true
+
+                  inhibit_rules:
+                    - source_match:
+                        severity: 'critical'
+                      target_match:
+                        severity: 'warning'
+                      equal: ['namespace', 'alertname']
+            secrets:
+              smtp_password: "${SMTP_PASSWORD}"
+
       parameters:
         - name: crds.create
           value: "true"
