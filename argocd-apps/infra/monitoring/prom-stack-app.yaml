@@ -24,11 +24,8 @@ spec:
           ingress:
             enabled: false
 
-          # Правильная структура конфигурации оповещений
           alerting:
             enabled: false
-
-          # Правильная структура unified alerting
           unifiedAlerting:
             enabled: true
 
@@ -55,12 +52,6 @@ spec:
               password: ${SMTP_PASSWORD}
               from_address: test@zarenoff.top
               from_name: Grafana Alerts
-
-            alerting:
-              enabled: "false"
-
-            unified_alerting:
-              enabled: "true"
 
         alertmanager:
           alertmanagerSpec:
