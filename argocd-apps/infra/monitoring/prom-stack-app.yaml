@@ -59,7 +59,7 @@ spec:
               smtp_smarthost: 'smtp.zarenoff.top:587'
               smtp_from: 'test@zarenoff.top'
               smtp_auth_username: 'test@zarenoff.top'
-              smtp_auth_password_file: '/etc/alertmanager/secrets/smtp-password/password'
+              smtp_auth_password: '{{ .Values.alertmanager.smtp.password }}'
               smtp_require_tls: true
             route:
               group_by: ['alertname', 'job', 'severity']
@@ -84,6 +84,12 @@ spec:
             storage: null
             secrets:
               - smtp-password
+          smtp:
+            password:
+              valueFrom:
+                secretKeyRef:
+                  name: smtp-password
+                  key: password
 
       parameters:
         - name: crds.create
