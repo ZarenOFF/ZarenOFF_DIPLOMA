@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: grafana-alerts
+  name: grafana-config
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "6"
@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/ZarenOFF/ZarenOFF_DIPLOMA.git
     targetRevision: HEAD
-    path: argocd-apps/infra/monitoring/grafana-alerts-config
+    path: argocd-apps/infra/monitoring/grafana-config
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
