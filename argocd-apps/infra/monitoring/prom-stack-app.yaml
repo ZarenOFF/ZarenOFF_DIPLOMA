@@ -23,11 +23,6 @@ spec:
           ingress:
             enabled: false
 
-          #alerting:
-          #  enabled: false
-          #unifiedAlerting:
-          #  enabled: true
-
           sidecar:
             dashboards:
               enabled: true
@@ -59,7 +54,7 @@ spec:
               smtp_smarthost: 'smtp.zarenoff.top:587'
               smtp_from: 'test@zarenoff.top'
               smtp_auth_username: 'test@zarenoff.top'
-              smtp_auth_password: '{{ .Values.alertmanager.smtp.SMTP_PASSWORD }}'
+              smtp_auth_password: '${SMTP_PASSWORD}'
               smtp_require_tls: true
             route:
               group_by: ['alertname', 'job', 'severity']
@@ -82,14 +77,12 @@ spec:
                 send_resolved: true
           alertmanagerSpec:
             storage: null
-            secrets:
-              - smtp-password
-          smtp:
-            password:
-              valueFrom:
-                secretKeyRef:
-                  name: smtp-password
-                  key: SMTP_PASSWORD
+            extraEnv:
+              - name: SMTP_PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: smtp-password
+                    key: SMTP_PASSWORD
 
       parameters:
         - name: crds.create
