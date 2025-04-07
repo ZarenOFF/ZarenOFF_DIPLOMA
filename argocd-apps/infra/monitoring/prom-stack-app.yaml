@@ -56,10 +56,34 @@ spec:
           enabled: true
           config:
             global:
-              resolve_timeout: 6m
-              slack_api_url: "https://test.test/test"
+              smtp_smarthost: 'smtp.zarenoff.top:587'
+              smtp_from: 'test@zarenoff.top'
+              smtp_auth_username: 'test@zarenoff.top'
+              smtp_auth_password_file: '/etc/alertmanager/secrets/smtp-password/password'
+              smtp_require_tls: true
+            route:
+              group_by: ['alertname', 'job', 'severity']
+              group_wait: 30s
+              group_interval: 5m
+              repeat_interval: 12h
+              receiver: email-notifications
+              routes:
+              - match:
+                  severity: critical
+                receiver: email-notifications
+                continue: true
+              - match:
+                  severity: warning
+                receiver: email-notifications
+            receivers:
+            - name: email-notifications
+              email_configs:
+              - to: 'admin@zarenoff.top'
+                send_resolved: true
           alertmanagerSpec:
             storage: null
+            secrets:
+              - smtp-password
 
       parameters:
         - name: crds.create
