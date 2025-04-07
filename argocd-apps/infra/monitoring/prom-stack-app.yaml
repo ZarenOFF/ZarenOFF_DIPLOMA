@@ -59,7 +59,7 @@ spec:
               smtp_smarthost: 'smtp.zarenoff.top:587'
               smtp_from: 'test@zarenoff.top'
               smtp_auth_username: 'test@zarenoff.top'
-              smtp_auth_password: '{{ .Values.alertmanager.smtp.password }}'
+              smtp_auth_password: '{{ .Values.alertmanager.smtp.SMTP_PASSWORD }}'
               smtp_require_tls: true
             route:
               group_by: ['alertname', 'job', 'severity']
@@ -89,7 +89,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: smtp-password
-                  key: password
+                  key: SMTP_PASSWORD
 
       parameters:
         - name: crds.create
