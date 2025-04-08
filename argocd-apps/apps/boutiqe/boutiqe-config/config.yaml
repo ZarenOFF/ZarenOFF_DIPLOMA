@@ -30,7 +30,7 @@ spec:
               - ALL
           privileged: false
           readOnlyRootFilesystem: true
-        image: us-central1-docker.pkg.dev/google-samples/microservices-demo/emailservice:v0.10.2
+        image: zarenoff/emailservice:0.1.1
         ports:
         - containerPort: 8080
         env:
