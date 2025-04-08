@@ -80,11 +80,12 @@ jobs:
             ${{ env.DOCKERHUB_USERNAME }}/${{ matrix.service }}:latest
             ${{ env.DOCKERHUB_USERNAME }}/${{ matrix.service }}:${{ steps.version.outputs.NEW_VERSION }}
 
-      # - name: Update version in config
-      #   if: matrix.service == 'shoppingassistantservice'
-      #   run: |
-      #     sed -i "s|us-central1-docker.pkg.dev/google-samples/microservices-demo/.*:v0.10.2|${{ env.DOCKERHUB_USERNAME }}/\1:${{ steps.version.outputs.NEW_VERSION }}|g" \
-      #       argocd-apps/apps/boutiqe/boutiqe-config/config.yaml
+      - name: Update version in config
+        if: matrix.service == 'shoppingassistantservice'
+        run: |
+          # Update versions in config
+          sed -i "s|zarenoff/.*:${{ steps.version.outputs.CURRENT_VERSION }}|zarenoff/\1:${{ steps.version.outputs.NEW_VERSION }}|g" \
+            argocd-apps/apps/boutiqe/boutiqe-config/config.yaml
 
       - name: Commit and push if changed
         if: matrix.service == 'shoppingassistantservice'
