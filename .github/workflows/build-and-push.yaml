@@ -8,6 +8,9 @@ on:
       - '.github/workflows/build-and-push.yaml'
       - 'version.txt'
 
+permissions:
+  contents: write
+
 env:
   DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
 
