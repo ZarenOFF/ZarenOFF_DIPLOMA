@@ -16,7 +16,14 @@ spec:
       values: |
         prometheus:
           prometheusSpec:
-            storageSpec: null
+            storageSpec:
+              volumeClaimTemplate:
+                spec:
+                  storageClassName: longhorn
+                  accessModes: ["ReadWriteOnce"]
+                  resources:
+                    requests:
+                      storage: 5Gi
             resources:
               requests:
                 cpu: 200m

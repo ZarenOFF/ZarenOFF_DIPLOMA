@@ -19,7 +19,7 @@ spec:
               cpu: 100m
               memory: 64Mi
             limits:
-              cpu: 200m
+              cpu: 100m
               memory: 128Mi
         speaker:
           resources:
@@ -27,7 +27,7 @@ spec:
               cpu: 100m
               memory: 64Mi
             limits:
-              cpu: 200m
+              cpu: 100m
               memory: 128Mi
   destination:
     server: https://kubernetes.default.svc
