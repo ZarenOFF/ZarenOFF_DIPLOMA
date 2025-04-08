@@ -30,7 +30,7 @@ spec:
               - ALL
           privileged: false
           readOnlyRootFilesystem: true
-        image: zarenoff/emailservice:0.1.1
+        image: zarenoff/emailservice:0.1.2
         ports:
         - containerPort: 8080
         env:
@@ -107,7 +107,7 @@ spec:
                 - ALL
             privileged: false
             readOnlyRootFilesystem: true
-          image: zarenoff/checkoutservice:0.1.1
+          image: zarenoff/checkoutservice:0.1.2
           ports:
           - containerPort: 5050
           readinessProbe:
@@ -193,7 +193,7 @@ spec:
               - ALL
           privileged: false
           readOnlyRootFilesystem: true
-        image: zarenoff/recommendationservice:0.1.1
+        image: zarenoff/recommendationservice:0.1.2
         ports:
         - containerPort: 8080
         readinessProbe:
@@ -274,7 +274,7 @@ spec:
                 - ALL
             privileged: false
             readOnlyRootFilesystem: true
-          image: zarenoff/frontend:0.1.1
+          image: zarenoff/frontend:0.1.2
           ports:
           - containerPort: 8080
           readinessProbe:
@@ -389,7 +389,7 @@ spec:
               - ALL
           privileged: false
           readOnlyRootFilesystem: true
-        image: zarenoff/paymentservice:0.1.1
+        image: zarenoff/paymentservice:0.1.2
         ports:
         - containerPort: 50051
         env:
@@ -465,7 +465,7 @@ spec:
               - ALL
           privileged: false
           readOnlyRootFilesystem: true
-        image: zarenoff/productcatalogservice:0.1.1
+        image: zarenoff/productcatalogservice:0.1.2
         ports:
         - containerPort: 3550
         env:
@@ -541,7 +541,7 @@ spec:
               - ALL
           privileged: false
           readOnlyRootFilesystem: true
-        image: zarenoff/cartservice:0.1.1
+        image: zarenoff/cartservice:0.1.2
         ports:
         - containerPort: 7070
         env:
@@ -724,7 +724,7 @@ spec:
               - ALL
           privileged: false
           readOnlyRootFilesystem: true
-        image: zarenoff/loadgenerator:0.1.1
+        image: zarenoff/loadgenerator:0.1.2
         env:
         - name: FRONTEND_ADDR
           value: "frontend:80"
@@ -778,7 +778,7 @@ spec:
               - ALL
           privileged: false
           readOnlyRootFilesystem: true
-        image: zarenoff/currencyservice:0.1.1
+        image: zarenoff/currencyservice:0.1.2
         ports:
         - name: grpc
           containerPort: 7000
@@ -854,7 +854,7 @@ spec:
               - ALL
           privileged: false
           readOnlyRootFilesystem: true
-        image: zarenoff/shippingservice:0.1.1
+        image: zarenoff/shippingservice:0.1.2
         ports:
         - containerPort: 50051
         env:
@@ -931,7 +931,7 @@ spec:
               - ALL
           privileged: false
           readOnlyRootFilesystem: true
-        image: zarenoff/adservice:0.1.1
+        image: zarenoff/adservice:0.1.2
         ports:
         - containerPort: 9555
         env:
