@@ -19,6 +19,13 @@ spec:
             replication_factor: 1
           storage:
             type: filesystem
+          resources:
+            requests:
+              cpu: 200m
+              memory: 256Mi
+            limits:
+              cpu: 1000m
+              memory: 2Gi
           schemaConfig:
             configs:
               - from: 2025-04-01

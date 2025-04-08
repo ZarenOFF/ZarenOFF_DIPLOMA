@@ -83,13 +83,14 @@ resource "helm_release" "argocd" {
     server:
       extraArgs:
         - --insecure
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          cpu: 200m
+          memory: 256Mi
       affinity:
-        # nodeAffinity:
-        #   requiredDuringSchedulingIgnoredDuringExecution:
-        #     nodeSelectorTerms:
-        #     - matchExpressions:
-        #       - key: node-role.kubernetes.io/infra
-        #         operator: Exists
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
           - weight: 100
@@ -101,20 +102,16 @@ resource "helm_release" "argocd" {
                   values:
                   - argocd-server
               topologyKey: kubernetes.io/hostname
-      # tolerations:
-      # - key: "node-role"
-      #   operator: "Equal"
-      #   value: "infra"
-      #   effect: "NoSchedule"
 
     repoServer:
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          cpu: 200m
+          memory: 256Mi
       affinity:
-        # nodeAffinity:
-        #   requiredDuringSchedulingIgnoredDuringExecution:
-        #     nodeSelectorTerms:
-        #     - matchExpressions:
-        #       - key: node-role.kubernetes.io/infra
-        #         operator: Exists
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
           - weight: 100
@@ -126,59 +123,11 @@ resource "helm_release" "argocd" {
                   values:
                   - argocd-repo-server
               topologyKey: kubernetes.io/hostname
-      # tolerations:
-      # - key: "node-role"
-      #   operator: "Equal"
-      #   value: "infra"
-      #   effect: "NoSchedule"
-
-    # applicationSet:
-    #   affinity:
-    #     nodeAffinity:
-    #       requiredDuringSchedulingIgnoredDuringExecution:
-    #         nodeSelectorTerms:
-    #         - matchExpressions:
-    #           - key: node-role.kubernetes.io/infra
-    #             operator: Exists
-    #   tolerations:
-    #   - key: "node-role"
-    #     operator: "Equal"
-    #     value: "infra"
-    #     effect: "NoSchedule"
-
-    # controller:
-    #   affinity:
-    #     nodeAffinity:
-    #       requiredDuringSchedulingIgnoredDuringExecution:
-    #         nodeSelectorTerms:
-    #         - matchExpressions:
-    #           - key: node-role.kubernetes.io/infra
-    #             operator: Exists
-    #   tolerations:
-    #   - key: "node-role"
-    #     operator: "Equal"
-    #     value: "infra"
-    #     effect: "NoSchedule"
-
-    # redis:
-    #   affinity:
-    #     nodeAffinity:
-    #       requiredDuringSchedulingIgnoredDuringExecution:
-    #         nodeSelectorTerms:
-    #         - matchExpressions:
-    #           - key: node-role.kubernetes.io/infra
-    #             operator: Exists
-    #   tolerations:
-    #   - key: "node-role"
-    #     operator: "Equal"
-    #     value: "infra"
-    #     effect: "NoSchedule"
     EOT
   ]
 
   depends_on = [
     kubernetes_namespace.argocd, 
-    null_resource.helm_repo_add,
     null_resource.helm_repo_add,
     null_resource.longhorn_helm_repo,
     kubernetes_namespace.metallb_system
