@@ -36,19 +36,23 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Get current version
+      - name: Get and increment version
         id: version
         run: |
+          # Read current version
           CURRENT_VERSION=$(cat version.txt)
-          echo "CURRENT_VERSION=$CURRENT_VERSION" >> $GITHUB_ENV
-
-      - name: Increment version
-        run: |
-          # Get current version and increment patch number
-          IFS='.' read -r major minor patch <<< "${{ env.CURRENT_VERSION }}"
+          echo "Current version: $CURRENT_VERSION"
+          
+          # Parse and increment
+          IFS='.' read -r major minor patch <<< "$CURRENT_VERSION"
           NEW_VERSION="$major.$minor.$((patch + 1))"
-          echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
-          # Save new version to file
+          echo "New version will be: $NEW_VERSION"
+          
+          # Save both versions as outputs
+          echo "CURRENT_VERSION=${CURRENT_VERSION}" >> "$GITHUB_OUTPUT"
+          echo "NEW_VERSION=${NEW_VERSION}" >> "$GITHUB_OUTPUT"
+          
+          # Update version file
           echo "$NEW_VERSION" > version.txt
 
       - name: Set up QEMU
@@ -71,17 +75,16 @@ jobs:
           push: true
           tags: |
             ${{ env.DOCKERHUB_USERNAME }}/${{ matrix.service }}:latest
-            ${{ env.DOCKERHUB_USERNAME }}/${{ matrix.service }}:${{ env.NEW_VERSION }}
+            ${{ env.DOCKERHUB_USERNAME }}/${{ matrix.service }}:${{ steps.version.outputs.NEW_VERSION }}
 
       - name: Update version in config
-        if: matrix.service == 'shoppingassistantservice' # Run only after last service
+        if: matrix.service == 'shoppingassistantservice'
         run: |
-          # Update versions in config
-          sed -i "s|us-central1-docker.pkg.dev/google-samples/microservices-demo/.*:v0.10.2|${{ env.DOCKERHUB_USERNAME }}/\1:${{ env.NEW_VERSION }}|g" \
+          sed -i "s|us-central1-docker.pkg.dev/google-samples/microservices-demo/.*:v0.10.2|${{ env.DOCKERHUB_USERNAME }}/\1:${{ steps.version.outputs.NEW_VERSION }}|g" \
             argocd-apps/apps/boutiqe/boutiqe-config/config.yaml
 
       - name: Commit and push if changed
-        if: matrix.service == 'shoppingassistantservice' # Run only after last service
+        if: matrix.service == 'shoppingassistantservice'
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
@@ -92,6 +95,6 @@ jobs:
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "Update service versions to ${{ env.NEW_VERSION }}"
+            git commit -m "Update service versions to ${{ steps.version.outputs.NEW_VERSION }}"
             git push
           fi
