@@ -84,7 +84,7 @@ jobs:
         if: matrix.service == 'shoppingassistantservice'
         run: |
           # Update versions in config
-          sed -i "s|zarenoff/.*:${{ steps.version.outputs.CURRENT_VERSION }}|zarenoff/\1:${{ steps.version.outputs.NEW_VERSION }}|g" \
+          sed -i "s|zarenoff/\([^:]*\):${{ steps.version.outputs.CURRENT_VERSION }}|zarenoff/\1:${{ steps.version.outputs.NEW_VERSION }}|g" \
             argocd-apps/apps/boutiqe/boutiqe-config/config.yaml
 
       - name: Commit and push if changed
