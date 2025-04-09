@@ -58,5 +58,37 @@ terraform apply
 ```
 Terraform'ом будет установлен ArgoCD в кластер, который в свою очередь подхватит все манифесты приложений и развернет их в кластере.
 
-[argocd](https://raw.githubusercontent.com/ZarenOFF/ZarenOFF_DIPLOMA/refs/heads/main/screenshots/argocd_main.png "argocd")
-## 
+![argocd](https://raw.githubusercontent.com/ZarenOFF/ZarenOFF_DIPLOMA/refs/heads/main/screenshots/argocd_main.png "argocd")
+
+## Сборка и deploy новой версии приложения
+Создан pipeline, который собирает микросервисы из директории *src*, после чего делает pull новых images в DockerHub с инкерементированным тегом. После этого при помощи *sed* изменяется версия images в `argocd-apps/apps/boutique/boutique-config/config.yaml` и измененный файл пушится обратно в репозиторий. Спустя некоторое время ArgoCD подхватывает изменения и деплоит новую версию приложения в кластер.
+Триггер pipeline происходит только при изменнии файлов в директории *src* или файла *build-and-push.yaml*
+
+![[pipeline]](https://raw.githubusercontent.com/ZarenOFF/ZarenOFF_DIPLOMA/refs/heads/main/screenshots/pipeline.png "pipeline")
+
+## Демонстрация работы кластера
+Online Boutique:
+![[boutique]](https://raw.githubusercontent.com/ZarenOFF/ZarenOFF_DIPLOMA/refs/heads/main/screenshots/boutique.png "boutique")
+
+Longhorn:
+![[longhorn]](https://raw.githubusercontent.com/ZarenOFF/ZarenOFF_DIPLOMA/refs/heads/main/screenshots/longhorn.png "longhorn")
+
+![[longhorn-volumes]](https://raw.githubusercontent.com/ZarenOFF/ZarenOFF_DIPLOMA/refs/heads/main/screenshots/longhorn-volumes.png "longhorn-volumes")
+
+Grafana:
+![[grafana-main.png]](https://raw.githubusercontent.com/ZarenOFF/ZarenOFF_DIPLOMA/refs/heads/main/screenshots/grafana-main.png "grafana-main.png")
+
+![[grafana-dashboard.png]](https://raw.githubusercontent.com/ZarenOFF/ZarenOFF_DIPLOMA/refs/heads/main/screenshots/grafana-dashboard.png "grafana-dashboard.png")
+
+![[grafana-datasources.png]](https://raw.githubusercontent.com/ZarenOFF/ZarenOFF_DIPLOMA/refs/heads/main/screenshots/grafana-datasources.png "grafana-datasources.png")
+
+Кастомный Dashboard для Online Boutique:
+![[grafana-custom-dashboard.png]](https://raw.githubusercontent.com/ZarenOFF/ZarenOFF_DIPLOMA/refs/heads/main/screenshots/grafana-custom-dashboard.png "grafana-custom-dashboard.png")
+
+Получение логов из Loki:
+![[loki-logs.png]](https://raw.githubusercontent.com/ZarenOFF/ZarenOFF_DIPLOMA/refs/heads/main/screenshots/loki-logs.png "loki-logs.png")
+
+Alertmanager:
+![[alertmanager.png]](https://raw.githubusercontent.com/ZarenOFF/ZarenOFF_DIPLOMA/refs/heads/main/screenshots/alertmanager.png "alertmanager.png")
+
+![[alert.png]](https://raw.githubusercontent.com/ZarenOFF/ZarenOFF_DIPLOMA/refs/heads/main/screenshots/alert.png "alert.png")
