@@ -1,4 +1,4 @@
-temp/smtp-pass.yaml
+temp/
 terraform/terraform.tfstate
 terraform/terraform.tfstate.backup
 terraform/.terraform/
