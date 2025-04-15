@@ -68,7 +68,7 @@ Terraform'ом будет установлен ArgoCD в кластер, кот�
 
 ## Демонстрация работы кластера
 Online Boutique:
-![[boutique]](https://raw.githubusercontent.com/ZarenOFF/ZarenOFF_DIPLOMA/refs/heads/main/screenshots/boutique.png "boutique")
+![[boutique]](https://raw.githubusercontent.com/ZarenOFF/ZarenOFF_DIPLOMA/refs/heads/main/screenshots/boutique.png "boutique.png")
 
 Longhorn:
 ![[longhorn]](https://raw.githubusercontent.com/ZarenOFF/ZarenOFF_DIPLOMA/refs/heads/main/screenshots/longhorn.png "longhorn")
@@ -91,4 +91,5 @@ Grafana:
 Alertmanager:
 ![[alertmanager.png]](https://raw.githubusercontent.com/ZarenOFF/ZarenOFF_DIPLOMA/refs/heads/main/screenshots/alertmanager.png "alertmanager.png")
 
+Пример уведомлений по почте:
 ![[alert.png]](https://raw.githubusercontent.com/ZarenOFF/ZarenOFF_DIPLOMA/refs/heads/main/screenshots/alert.png "alert.png")

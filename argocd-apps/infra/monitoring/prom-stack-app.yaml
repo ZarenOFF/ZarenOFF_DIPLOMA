@@ -43,6 +43,10 @@ spec:
             limits:
               cpu: 250m
               memory: 750Mi
+          persistence:
+            enabled: true
+            size: 5Gi
+            storageClassName: longhorn
 
           sidecar:
             dashboards:
